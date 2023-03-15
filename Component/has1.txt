@@ -1,0 +1,184 @@
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, Button,TouchableOpacity,TextInput } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import { useNavigation } from '@react-navigation/native';
+import { auth } from '../firebase';
+import { LinearGradient } from "expo-linear-gradient";
+//import firebase from 'firebase';
+import firebase from 'firebase/compat';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+
+const QrCode = () => {
+ 
+  const todoRef = firebase.firestore().collection("userData");
+   
+  const todoref=()=>{
+      
+    if(text && text ||email && email.length>0){
+
+      const data={
+        text,
+        email
+      }
+      todoRef
+      .add(data)
+      .then(()=>{
+        setText(''),
+        setEmail('')
+
+
+      }).catch((error)=>{
+      alert(error)
+      })
+    }
+  }
+  
+  const navigation = useNavigation()
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login")
+      })
+      .catch(error => alert(error.message))
+  };
+
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+  const [text, setText] = useState('Not yet scanned')
+  const [email, setEmail] = useState(false);
+
+
+  const askForCameraPermission = () => {
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })()
+  }
+
+  
+  useEffect(() => {
+    askForCameraPermission();
+  }, []);
+
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanned(true);
+    setText(data)
+    console.log('Type: ' + type + '\nData: ' + data)
+  };
+
+  // Check permissions and return the screens
+  if (hasPermission === null) {
+    return (
+      <View style={styles.container}>
+        <Text>Requesting for camera permission</Text>
+      </View>)
+  }
+  if (hasPermission === false) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ margin: 10 }}>No access to camera</Text>
+        <Button title={'Allow Camera'} onPress={() => askForCameraPermission()} />
+      </View>)
+  }
+  // Return the View
+  return (
+  <>
+  
+    <View style={styles.container}>
+      <View style={styles.barcodebox}>
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={{ height: 800, width: 500 }} />
+      </View>
+      <View style={{ bottom: 150 }}>
+        <Text style={styles.maintext}>{text}</Text>
+        {scanned && <Button title={'Click'} onPress={() => setScanned(false)+todoref()} color='orange' />}
+      </View>
+      <View style={{bottom:120}}>
+
+      <FontAwesome5 name="envelope" size={25} color="black"    style={{left:50,top:25,opacity:0.3}}/>
+         <TextInput  style={styles.input}
+         placeholder="Enter your email"
+          onChangeText={text=>setEmail(text)}
+          value={email}/>
+
+      </View>
+      <View style={{ bottom: 60, right: 100 }}>
+        <TouchableOpacity
+          onPress={() => handleSignOut()}>
+          <LinearGradient colors={['orange', 'yellow']} style={{ top: 10, marginLeft: 130, marginRight: 80, padding: 15, borderRadius: 10, marginTop: 20 }}>
+            <Text style={styles.button1}>Back</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+    
+
+      </View>
+    </View>
+
+  </>
+  );
+}
+export default QrCode
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  maintext: {
+    fontSize: 16,
+    margin: 20,
+  },
+  barcodebox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 500,
+    width: 700,
+    overflow: 'hidden',
+    borderRadius: 30,
+    // backgroundColor: 'tomato',
+    bottom: 180
+  },
+  container2: {
+    bottom: 100
+  },
+  input: {
+    height: 40,
+    // margin:6,
+    //  backgroundColor:'#F2E5E5',
+    padding: 10,
+    //  borderBottomWidth: 1,
+    left: 15,
+    bottom: 35
+
+  },
+  text: {
+    alignSelf: 'center',
+    fontWeight: 'bold'
+  },
+  container1: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    right: 130,
+    bottom: 30
+  },
+  button1: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 15,
+    color: 'white',
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  input:{
+       
+    marginLeft:50,
+    marginRight:50,
+     padding :15,
+     bottom:20,
+    left:20
+  },
+}); 
