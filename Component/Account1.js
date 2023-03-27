@@ -4,7 +4,6 @@ import { auth } from '../firebase'
 import { useState,useEffect } from 'react'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import {LinearGradient} from 'expo-linear-gradient'
-//import firebase from 'firebase'
 import firebase from 'firebase/compat'
 const Account=({navigation }) =>{
   useEffect(() => {
@@ -43,7 +42,6 @@ const Account=({navigation }) =>{
       .set({
         email,
         username
-      
       })
     })
     .catch((error=>{
@@ -51,17 +49,15 @@ const Account=({navigation }) =>{
     }))
   }
  
-
-
 const TogglePass = ()=>{
   setSecure1 (!secure1);
 }
 
   return (
  <KeyboardAvoidingView style={{flex:1,}}behavior='height' >
-    <ScrollView style={{flex:1,backgroundColor:'#ffffff' }}>
-      <FontAwesome5 name='user'size={45} color={'orange'} style={{top:50,left:60}}/>
-    <LinearGradient colors={['orange','yellow',]}style={{height:120,marginLeft:190,borderBottomLeftRadius:180,overflow:'hidden',bottom:48}}/>
+    <ScrollView style={{flex:1 }}>
+      <FontAwesome5 name='user'size={45} color={'#3E54AC'} style={{top:50,left:60}}/>
+    <LinearGradient colors={['#3E54AC','#3E54AC',]}style={{height:120,marginLeft:190,borderBottomLeftRadius:180,overflow:'hidden',bottom:48}}/>
    {/* <LinearGradient colors={['yellow','orange']}style={{height:150,marginRight:170,borderBottomRightRadius:200,overflow:'hidden',bottom:150}}/>*/}
 
       
@@ -97,14 +93,14 @@ const TogglePass = ()=>{
           placeholder="Enter your Password"
          onChangeText={text=>setPassword(text)}
           value={password}
-          secureTextEntry={secure1 ? true : false}/>
+          secureTextEntry={secure1 ? false : true}/>
           {error.field === 'email' && (
              <Text style={{color:'red',left:50,bottom:20}}>{error.message}</Text>
           )}
 
 
         <TouchableOpacity onPress={()=>TogglePass()}>
-<Text  style={{left:300,bottom:60}}>{secure1 ?<FontAwesome5 name='eye-slash'size={17} color={"black"}/>:<FontAwesome5 name='eye'size={17} color={"black"}/>}</Text>
+<Text  style={{left:300,bottom:60}}>{secure1 ?<FontAwesome5 name='eye'size={17} color={"black"}/>:<FontAwesome5 name='eye-slash'size={17} color={"black"}/>}</Text>
  </TouchableOpacity>
 
     </View>
@@ -112,7 +108,7 @@ const TogglePass = ()=>{
     <View style={{top:110,left:20}}>
           <TouchableOpacity 
           onPress={()=>registerUser(email,password,username)}>
-          <LinearGradient colors={['orange','yellow',]}style={{top:30,marginLeft:150,marginRight:80,padding:12,borderRadius:10,marginTop:20}}>
+          <LinearGradient colors={['#3E54AC','#3E54AC',]}style={{top:30,marginLeft:150,marginRight:80,padding:12,borderRadius:5,marginTop:20}}>
              <Text style={styles.button1}>SIGN UP</Text>
              </LinearGradient>
           </TouchableOpacity>
@@ -149,7 +145,7 @@ const styles = StyleSheet.create({
       login1:{
             marginTop:8,
             fontSize:16,
-            color:'orange'  ,
+            color:'#3E54AC'  ,
             left:110,
             bottom:30
 

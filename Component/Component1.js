@@ -7,16 +7,16 @@ const Component1=({navigation}) =>{
   return (
 
     <View style={styles.container1}>
-     <FontAwesome5 name='qrcode' size={85} color={'orange'} style={{top:70}}/>
-     <Text style={{top:100,fontSize:20,color:'orange'}}>Generate this QrCode</Text>
+     <FontAwesome5 name='qrcode' size={85} color={'#3E54AC'} style={{top:70}}/>
+     <Text style={{top:100,fontSize:20,color:'#3E54AC'}}>Generate this QrCode</Text>
         <TouchableOpacity
            onPress={() => navigation.navigate('QR')}
       style={styles.button}>
         <Text style={styles.buttonText}>Generate</Text>
         </TouchableOpacity>
     
-      <FontAwesome5 name='chart-pie' size={85} color={'orange'} style={{top:70}}/>
-     <Text style={{top:100,fontSize:20,color:'orange'}}>Show Report</Text>
+      <FontAwesome5 name='chart-pie' size={85} color={'#3E54AC'} style={{top:70}}/>
+     <Text style={{top:100,fontSize:20,color:'#3E54AC'}}>Show Report</Text>
       <TouchableOpacity
        onPress={() => navigation.navigate('Fetch')}
     style={styles.button}>
@@ -34,10 +34,10 @@ const styles  = StyleSheet.create({
         alignItems: 'center'
       },
        button: {    
-        backgroundColor: 'orange',
+        backgroundColor: '#3E54AC',
         width: '60%',
         padding: 15,
-        borderRadius: 10,
+        borderRadius: 6,
         alignItems: 'center',
         bottom:50,
         marginTop:200,

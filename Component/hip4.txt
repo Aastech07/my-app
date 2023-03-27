@@ -42,7 +42,6 @@ const Fetch = () => {
             <Text style={styles.itemText}>{item. subject} </Text>
             <Text style={styles.itemText}>{item. text}</Text>
             
-  
           </View>
       </Pressable>)}/>
   </View>

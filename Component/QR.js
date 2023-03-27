@@ -24,13 +24,13 @@ const  QR=()=> {
   return (
     <KeyboardAvoidingView style={{flex:1,}}behavior='height' >
         <ScrollView style={{flex:1,}}>
-<LinearGradient colors={['orange','yellow',]}style={{height:130,marginLeft:200,borderBottomLeftRadius:180,overflow:'hidden',}}/>
+<LinearGradient colors={['#3E54AC','#3E54AC',]}style={{height:130,marginLeft:200,borderBottomLeftRadius:180,overflow:'hidden',}}/>
      <View style={{top:100,alignSelf:'center',left:30}}>
-      <Text style={{bottom:50,right:30,color:'orange',fontWeight:'bold'}}>Generation of QR Code in React Native</Text>
+      <Text style={{bottom:50,right:30,color:'#3E54AC',fontWeight:'bold'}}>Generation of QR Code in React Native</Text>
        <QRCode
        value={qrcode?qrcode:'NA'}
        size={200}
-       color={'orange'}
+       color={'#3E54AC'}
        backgroundColor="white"/>
       </View>
 
@@ -44,9 +44,9 @@ const  QR=()=> {
     value={input}/>
   <View style={{top:10}}>
 <TouchableOpacity  onPress={()=>setQrcode(input)}>
-    <LinearGradient colors={['orange','yellow',]}style={{top:50,marginLeft:100,marginRight:100,padding:12,
+    <LinearGradient colors={['#3E54AC','#3E54AC',]}style={{top:50,marginLeft:100,marginRight:100,padding:12,
        overflow:'hidden',
-      borderRadius:10,marginBottom:200,marginTop:80,paddingLeft:50,paddingRight:50}}>
+      borderRadius:5,marginBottom:200,marginTop:80,paddingLeft:50,paddingRight:50}}>
        <Text style={styles.button1}>Click</Text>
     </LinearGradient>
    </TouchableOpacity>
@@ -57,7 +57,7 @@ const  QR=()=> {
       <TouchableOpacity
         onPress={handleSignOut}>
         
-        <Text><FontAwesome5 name='arrow-left'size={35} color={'orange'}/></Text>
+        <Text><FontAwesome5 name='arrow-left'size={35} color={'#3E54AC'}/></Text>
       </TouchableOpacity>
     </View>
  </ScrollView>
@@ -74,6 +74,7 @@ const styles= StyleSheet.create({
     fontWeight:'bold',
     fontSize:15, 
     color:'white',
+    
     },
     container1: {
       flex: 1,
